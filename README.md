@@ -3,8 +3,8 @@
 
 This package is a timetable for Flutter that allows developers to customize each visible UI element as needed.
 
-![Plain old timetable](./images/default.gif)
-![Timetable with all the builders, a controller, etc,](./images/custom.gif)
+![Plain old timetable](https://github.com/yourfriendken/flutter_timetable/raw/main/images/default.gif)
+![Timetable with all the builders, a controller, etc,](https://github.com/yourfriendken/flutter_timetable/raw/main/images/custom.gif)
 
 
 ```dart

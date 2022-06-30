@@ -38,7 +38,8 @@ class _TimetableState<T> extends State<Timetable<T>> {
   double columnWidth = 50.0;
   TimetableController controller = TimetableController();
   final _key = GlobalKey();
-  get nowIndicatorColor => widget.nowIndicatorColor ?? Theme.of(context).indicatorColor;
+  get nowIndicatorColor =>
+      widget.nowIndicatorColor ?? Theme.of(context).indicatorColor;
 
   @override
   void initState() {
@@ -58,10 +59,11 @@ class _TimetableState<T> extends State<Timetable<T>> {
     }
 
     if (event is TimetableColumnsChanged) {
-      final previous = controller.visibleDateStart;
+      final prev = controller.visibleDateStart;
       final now = DateTime.now();
       await adjustColumnWidth();
-      return _jumpTo(DateTime(previous.year, previous.month, previous.day, now.hour, now.minute));
+      _jumpTo(DateTime(prev.year, prev.month, prev.day, now.hour, now.minute));
+      return;
     }
 
     if (mounted) setState(() {});
@@ -73,7 +75,8 @@ class _TimetableState<T> extends State<Timetable<T>> {
     if (box.hasSize) {
       final size = box.size;
       final layoutWidth = size.width;
-      final width = (layoutWidth - controller.timelineWidth) / controller.columns;
+      final width =
+          (layoutWidth - controller.timelineWidth) / controller.columns;
       if (width != columnWidth) {
         columnWidth = width;
         await Future.microtask(() => null);
@@ -111,7 +114,8 @@ class _TimetableState<T> extends State<Timetable<T>> {
                           return true;
                         }
                         _isHeaderScrolling = true;
-                        _dayScrollController.jumpTo(_dayHeadingScrollController.position.pixels);
+                        _dayScrollController.jumpTo(
+                            _dayHeadingScrollController.position.pixels);
                         return false;
                       },
                       child: ListView.builder(
@@ -140,7 +144,8 @@ class _TimetableState<T> extends State<Timetable<T>> {
                     return true;
                   }
                   _isTableScrolling = true;
-                  _dayHeadingScrollController.jumpTo(_dayScrollController.position.pixels);
+                  _dayHeadingScrollController
+                      .jumpTo(_dayScrollController.position.pixels);
                   return true;
                 },
                 child: SingleChildScrollView(
@@ -158,7 +163,9 @@ class _TimetableState<T> extends State<Timetable<T>> {
                               for (var i = 1; i < 24; i++) //
                                 SizedBox(
                                   height: controller.cellHeight,
-                                  child: Center(child: _buildHour(TimeOfDay(hour: i, minute: 0))),
+                                  child: Center(
+                                      child: _buildHour(
+                                          TimeOfDay(hour: i, minute: 0))),
                                 ),
                             ],
                           ),
@@ -170,8 +177,12 @@ class _TimetableState<T> extends State<Timetable<T>> {
                             itemExtent: columnWidth,
                             controller: _dayScrollController,
                             itemBuilder: (context, index) {
-                              final date = controller.start.add(Duration(days: index));
-                              final events = widget.items.where((event) => DateUtils.isSameDay(date, event.start)).toList();
+                              final date =
+                                  controller.start.add(Duration(days: index));
+                              final events = widget.items
+                                  .where((event) =>
+                                      DateUtils.isSameDay(date, event.start))
+                                  .toList();
                               final now = DateTime.now();
                               final isToday = DateUtils.isSameDay(date, now);
                               return Container(
@@ -188,21 +199,29 @@ class _TimetableState<T> extends State<Timetable<T>> {
                                             width: columnWidth,
                                             height: controller.cellHeight,
                                             child: Center(
-                                              child: _buildCell(DateUtils.dateOnly(date).add(Duration(hours: i))),
+                                              child: _buildCell(
+                                                  DateUtils.dateOnly(date)
+                                                      .add(Duration(hours: i))),
                                             ),
                                           ),
                                       ],
                                     ),
                                     for (final TimetableItem<T> event in events)
                                       Positioned(
-                                        top: (event.start.hour + (event.start.minute / 60)) * controller.cellHeight,
+                                        top: (event.start.hour +
+                                                (event.start.minute / 60)) *
+                                            controller.cellHeight,
                                         width: columnWidth,
-                                        height: event.duration.inMinutes * controller.cellHeight / 60,
+                                        height: event.duration.inMinutes *
+                                            controller.cellHeight /
+                                            60,
                                         child: _buildEvent(event),
                                       ),
                                     if (isToday)
                                       Positioned(
-                                        top: ((now.hour + (now.minute / 60.0)) * controller.cellHeight) - 1,
+                                        top: ((now.hour + (now.minute / 60.0)) *
+                                                controller.cellHeight) -
+                                            1,
                                         width: columnWidth,
                                         child: Stack(
                                           clipBehavior: Clip.none,
@@ -248,8 +267,12 @@ class _TimetableState<T> extends State<Timetable<T>> {
 
   Widget _buildHeaderCell(int i) {
     final date = controller.start.add(Duration(days: i));
-    if (widget.headerCellBuilder != null) return widget.headerCellBuilder!(date);
-    final weight = DateUtils.isSameDay(date, DateTime.now()) ? FontWeight.bold : FontWeight.normal;
+    if (widget.headerCellBuilder != null) {
+      return widget.headerCellBuilder!(date);
+    }
+    final weight = DateUtils.isSameDay(date, DateTime.now()) //
+        ? FontWeight.bold
+        : FontWeight.normal;
     return Center(
       child: Text(
         _dateFormatter.format(date),
@@ -278,7 +301,9 @@ class _TimetableState<T> extends State<Timetable<T>> {
   }
 
   Widget _buildCorner() {
-    if (widget.cornerBuilder != null) return widget.cornerBuilder!(controller.visibleDateStart);
+    if (widget.cornerBuilder != null) {
+      return widget.cornerBuilder!(controller.visibleDateStart);
+    }
     return Center(
       child: Text(
         "${controller.visibleDateStart.year}",
@@ -287,7 +312,7 @@ class _TimetableState<T> extends State<Timetable<T>> {
     );
   }
 
-  final _timeFormatter = DateFormat("h:mm a");
+  final _hmma = DateFormat("h:mm a");
   Widget _buildEvent(TimetableItem<T> event) {
     if (widget.itemBuilder != null) return widget.itemBuilder!(event);
     return Container(
@@ -301,7 +326,7 @@ class _TimetableState<T> extends State<Timetable<T>> {
         ),
       ),
       child: Text(
-        "${_timeFormatter.format(event.start)} - ${_timeFormatter.format(event.end)}",
+        "${_hmma.format(event.start)} - ${_hmma.format(event.end)}",
         style: TextStyle(
           fontSize: 10,
           color: Theme.of(context).colorScheme.onSurface,
@@ -317,14 +342,25 @@ class _TimetableState<T> extends State<Timetable<T>> {
     if (_isSnapping || !widget.snapToDay) return;
     _isSnapping = true;
     await Future.microtask(() => null);
-    final snapPosition = ((_dayScrollController.offset) / columnWidth).round() * columnWidth;
-    _dayScrollController.animateTo(snapPosition, duration: _animationDuration, curve: _animationCurve);
-    _dayHeadingScrollController.animateTo(snapPosition, duration: _animationDuration, curve: _animationCurve);
+    final snapPosition =
+        ((_dayScrollController.offset) / columnWidth).round() * columnWidth;
+    _dayScrollController.animateTo(
+      snapPosition,
+      duration: _animationDuration,
+      curve: _animationCurve,
+    );
+    _dayHeadingScrollController.animateTo(
+      snapPosition,
+      duration: _animationDuration,
+      curve: _animationCurve,
+    );
     _isSnapping = false;
   }
 
   _updateVisibleDate() async {
-    final date = controller.start.add(Duration(days: _dayHeadingScrollController.position.pixels ~/ columnWidth));
+    final date = controller.start.add(Duration(
+      days: _dayHeadingScrollController.position.pixels ~/ columnWidth,
+    ));
     if (date != controller.visibleDateStart) {
       controller.updateVisibleDate(date);
       setState(() {});
@@ -332,11 +368,21 @@ class _TimetableState<T> extends State<Timetable<T>> {
   }
 
   Future _jumpTo(DateTime date) async {
-    final datePosition = (date.difference(controller.start).inDays) * columnWidth;
-    final hourPosition = ((date.hour) * controller.cellHeight) - (controller.cellHeight / 2);
+    final datePosition =
+        (date.difference(controller.start).inDays) * columnWidth;
+    final hourPosition =
+        ((date.hour) * controller.cellHeight) - (controller.cellHeight / 2);
     await Future.wait([
-      _dayScrollController.animateTo(datePosition, duration: _animationDuration, curve: _animationCurve),
-      _timeScrollController.animateTo(hourPosition, duration: _animationDuration, curve: _animationCurve),
+      _dayScrollController.animateTo(
+        datePosition,
+        duration: _animationDuration,
+        curve: _animationCurve,
+      ),
+      _timeScrollController.animateTo(
+        hourPosition,
+        duration: _animationDuration,
+        curve: _animationCurve,
+      ),
     ]);
   }
 }

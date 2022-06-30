@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         routes: {
           '/': (context) => const TimetableScreen(),
-          '/custom': (context) => const CustomizedTimetableScreen(),
+          '/custom': (context) => const CustomTimetableScreen(),
         },
       );
 }
@@ -34,7 +34,10 @@ class TimetableScreen extends StatelessWidget {
                 children: const [
                   Icon(Icons.celebration_outlined, color: Colors.white),
                   SizedBox(width: 8),
-                  Text("Custom builders", style: TextStyle(color: Colors.white, fontSize: 16)),
+                  Text(
+                    "Custom builders",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                   SizedBox(width: 8),
                   Icon(Icons.chevron_right_outlined, color: Colors.white),
                 ],
@@ -47,13 +50,13 @@ class TimetableScreen extends StatelessWidget {
 }
 
 /// Timetable screen with all the stuff - controller, builders, etc.
-class CustomizedTimetableScreen extends StatefulWidget {
-  const CustomizedTimetableScreen({Key? key}) : super(key: key);
+class CustomTimetableScreen extends StatefulWidget {
+  const CustomTimetableScreen({Key? key}) : super(key: key);
   @override
-  State<CustomizedTimetableScreen> createState() => _CustomizedTimetableScreenState();
+  State<CustomTimetableScreen> createState() => _CustomTimetableScreenState();
 }
 
-class _CustomizedTimetableScreenState extends State<CustomizedTimetableScreen> {
+class _CustomTimetableScreenState extends State<CustomTimetableScreen> {
   final items = generateItems();
   final controller = TimetableController(
     start: DateUtils.dateOnly(DateTime.now()).subtract(const Duration(days: 7)),
@@ -82,7 +85,10 @@ class _CustomizedTimetableScreenState extends State<CustomizedTimetableScreen> {
                 children: const [
                   Icon(Icons.chevron_left_outlined, color: Colors.white),
                   SizedBox(width: 8),
-                  Text("Default", style: TextStyle(color: Colors.white, fontSize: 16)),
+                  Text(
+                    "Default",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ],
               ),
             ),
@@ -101,11 +107,13 @@ class _CustomizedTimetableScreenState extends State<CustomizedTimetableScreen> {
             ),
             IconButton(
               icon: const Icon(Icons.zoom_in),
-              onPressed: () => controller.setCellHeight(controller.cellHeight + 10),
+              onPressed: () =>
+                  controller.setCellHeight(controller.cellHeight + 10),
             ),
             IconButton(
               icon: const Icon(Icons.zoom_out),
-              onPressed: () => controller.setCellHeight(controller.cellHeight - 10),
+              onPressed: () =>
+                  controller.setCellHeight(controller.cellHeight - 10),
             ),
           ],
         ),
@@ -120,7 +128,10 @@ class _CustomizedTimetableScreenState extends State<CustomizedTimetableScreen> {
               child: Text(
                 DateFormat("MM/d/yyyy\nha").format(datetime),
                 style: TextStyle(
-                  color: Color(0xff000000 + (0x002222 * datetime.hour) + (0x110000 * datetime.day)).withOpacity(0.5),
+                  color: Color(0xff000000 +
+                          (0x002222 * datetime.hour) +
+                          (0x110000 * datetime.day))
+                      .withOpacity(0.5),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -131,7 +142,8 @@ class _CustomizedTimetableScreenState extends State<CustomizedTimetableScreen> {
             child: Center(child: Text("${datetime.year}")),
           ),
           headerCellBuilder: (datetime) {
-            final color = Colors.primaries[datetime.day % Colors.accents.length];
+            final color =
+                Colors.primaries[datetime.day % Colors.accents.length];
             return Container(
               decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(color: color, width: 2)),
@@ -164,13 +176,17 @@ class _CustomizedTimetableScreenState extends State<CustomizedTimetableScreen> {
               color: Colors.white.withAlpha(220),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 4, offset: Offset(0, 2)),
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
               ],
             ),
             child: Center(
               child: Text(
                 item.data ?? "",
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
           ),

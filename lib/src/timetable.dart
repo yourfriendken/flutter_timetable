@@ -3,15 +3,33 @@ import 'package:intl/intl.dart';
 
 import '../flutter_timetable.dart';
 
+/// Timetable widget that display calendat like view of the events.
 class Timetable<T> extends StatefulWidget {
+  /// [TimetableController] is the controller that also initialize the timetable.
   final TimetableController? controller;
+
+  /// Renders for the cells the represent each hour that provides that [DateTime] for that hour
   final Widget Function(DateTime)? cellBuilder;
+
+  /// Renders for the header that provides the [DateTime] for the day
   final Widget Function(DateTime)? headerCellBuilder;
+
+  /// Timetable items to display in the timetable
   final List<TimetableItem<T>> items;
+
+  /// Renders event card from `TimetableItem<T>` for each item
   final Widget Function(TimetableItem<T>)? itemBuilder;
+
+  /// Renders hour label given [TimeOfDay] for each hour
   final Widget Function(TimeOfDay time)? hourLabelBuilder;
+
+  /// Renders upper left corner of the timetable given the first visible date
   final Widget Function(DateTime current)? cornerBuilder;
+
+  /// Snap to hour column. Default is `true`.
   final bool snapToDay;
+
+  /// Color of indicator line that shows the current time. Default is `Theme.indicatorColor`.
   final Color? nowIndicatorColor;
 
   const Timetable({

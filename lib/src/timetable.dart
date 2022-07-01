@@ -3,7 +3,9 @@ import 'package:intl/intl.dart';
 
 import '../flutter_timetable.dart';
 
-/// Timetable widget that display calendat like view of the events.
+/// The [Timetable] widget displays calendar like view of the events that scrolls
+/// horizontally through the days and vertical through the hours.
+/// <img src="https://github.com/yourfriendken/flutter_timetable/raw/main/images/default.gif" width="400" />
 class Timetable<T> extends StatefulWidget {
   /// [TimetableController] is the controller that also initialize the timetable.
   final TimetableController? controller;
@@ -32,6 +34,9 @@ class Timetable<T> extends StatefulWidget {
   /// Color of indicator line that shows the current time. Default is `Theme.indicatorColor`.
   final Color? nowIndicatorColor;
 
+  /// The [Timetable] widget displays calendar like view of the events that scrolls
+  /// horizontally through the days and vertical through the hours.
+  /// <img src="https://github.com/yourfriendken/flutter_timetable/raw/main/images/default.gif" width="400" />
   const Timetable({
     Key? key,
     this.controller,

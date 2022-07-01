@@ -88,7 +88,7 @@ class _TimetableState<T> extends State<Timetable<T>> {
   }
 
   _eventHandler(TimetableControllerEvent event) async {
-    if (event is TimetableJumpTo) {
+    if (event is TimetableJumpToRequested) {
       _jumpTo(event.date);
     }
 

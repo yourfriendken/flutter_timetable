@@ -1,6 +1,6 @@
 name: flutter_timetable
 description: Displays a timetable for dates and times on items in a list.
-version: 0.0.3
+version: 0.1.0
 repository: https://github.com/yourfriendken/flutter_timetable
 
 environment:

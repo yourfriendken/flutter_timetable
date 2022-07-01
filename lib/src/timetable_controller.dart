@@ -33,6 +33,10 @@ class TimetableController {
 
   /// The [start] date (first column) of the timetable.
   DateTime get start => _start;
+  set start(DateTime value) {
+    _start = DateUtils.dateOnly(value);
+    dispatch(TimetableStartChanged(_start));
+  }
 
   int _columns = 3;
 
@@ -84,7 +88,7 @@ class TimetableController {
 
   /// Scrolls the timetable to the given date and time.
   void jumpTo(DateTime date) {
-    dispatch(TimetableJumpTo(date));
+    dispatch(TimetableJumpToRequested(date));
   }
 
   /// Updates the number of columns in the timetable
@@ -124,7 +128,12 @@ class TimetableColumnsChanged extends TimetableControllerEvent {
 }
 
 /// Event used to scroll the timetable to a given date and time
-class TimetableJumpTo extends TimetableControllerEvent {
-  TimetableJumpTo(this.date);
+class TimetableJumpToRequested extends TimetableControllerEvent {
+  TimetableJumpToRequested(this.date);
   final DateTime date;
+}
+
+/// Event dispatched when the start date of the timetable changes
+class TimetableStartChanged extends TimetableControllerEvent {
+  TimetableStartChanged(DateTime start);
 }

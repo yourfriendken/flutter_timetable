@@ -63,17 +63,28 @@ class _TimetableState<T> extends State<Timetable<T>> {
   final _key = GlobalKey();
   get nowIndicatorColor =>
       widget.nowIndicatorColor ?? Theme.of(context).indicatorColor;
-
+  int? _listenerId;
   @override
   void initState() {
     controller = widget.controller ?? controller;
-    controller.addListener(_eventHandler);
+    _listenerId = controller.addListener(_eventHandler);
     if (widget.items.isNotEmpty) {
       widget.items.sort((a, b) => a.start.compareTo(b.start));
     }
     WidgetsBinding.instance.addPostFrameCallback((_) => adjustColumnWidth());
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (_listenerId != null) {
+      controller.removeListener(_listenerId!);
+    }
+    _dayScrollController.dispose();
+    _dayHeadingScrollController.dispose();
+    _timeScrollController.dispose();
+    super.dispose();
   }
 
   _eventHandler(TimetableControllerEvent event) async {

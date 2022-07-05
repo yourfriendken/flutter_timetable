@@ -1,14 +1,30 @@
 
 [![Pub Version](https://img.shields.io/pub/v/flutter_timetable)](https://pub.dev/packages/flutter_timetable)
 [![Test status](https://github.com/yourfriendken/flutter_timetable/actions/workflows/tests.yml/badge.svg?style=for-the-badge)](https://github.com/yourfriendken/flutter_timetable/actions/workflows/tests.yml)
-
+[![codecov](https://codecov.io/gh/yourfriendken/flutter_timetable/branch/main/graph/badge.svg?token=63VTEILRUG)](https://codecov.io/gh/yourfriendken/flutter_timetable)
 
 # Timetable for Flutter
 
 This package is a timetable for Flutter that allows developers to customize each visible UI element as needed.
 
-![Plain old timetable](https://github.com/yourfriendken/flutter_timetable/raw/main/images/default.gif)
-![Timetable with all the builders, a controller, etc,](https://github.com/yourfriendken/flutter_timetable/raw/main/images/custom.gif)
+
+# Goals of this package
+
+## Highly customizable
+
+Every UI element display should be customizable. They are reasonable defaults, but developers should be able to override them to fit their needs. This customization is done using `builder` functions in the `Timetable` class constructor.
+
+The `Timetable` class also takes a `controller` (`TimtableController`) that allows developers to manipulate the timetable using other custom functions and UI elements.
+
+## Lightweight
+
+Intentionally avoiding dependencies makes this package lightweight, increases compatibility, and makes it easier to maintain.
+
+Limiting the scope of this package to just the timetable widget avoids superfluous features and potential bloat. For example, instead of anticipating and building components, the `TimtableController` allows listeners and dispatches events, allowing developers to build more customized UI where needed.
+
+| Defaults out of the box | Using customized builders and controllers |
+| ------- | ----------- |
+| ![Plain old timetable](https://github.com/yourfriendken/flutter_timetable/raw/main/images/default.gif) | ![Timetable with all the builders, a controller, etc,](https://github.com/yourfriendken/flutter_timetable/raw/main/images/custom.gif) |
 
 
 ```dart

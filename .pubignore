@@ -1,2 +1,5 @@
 images/
 coverage/
+build/
+.dart_tool/
+.packages

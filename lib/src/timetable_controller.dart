@@ -49,6 +49,7 @@ class TimetableController {
   double get cellHeight => _cellHeight;
 
   final Map<int, Function(TimetableControllerEvent)> _listeners = {};
+  bool get hasListeners => _listeners.isNotEmpty;
 
   double _headerHeight = 50.0;
 
@@ -135,5 +136,6 @@ class TimetableJumpToRequested extends TimetableControllerEvent {
 
 /// Event dispatched when the start date of the timetable changes
 class TimetableStartChanged extends TimetableControllerEvent {
-  TimetableStartChanged(DateTime start);
+  TimetableStartChanged(this.start);
+  final DateTime start;
 }

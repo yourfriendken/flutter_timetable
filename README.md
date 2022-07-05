@@ -1,5 +1,7 @@
 
 [![Pub Version](https://img.shields.io/pub/v/flutter_timetable?color=green&style=for-the-badge)](https://pub.dev/packages/flutter_timetable)
+[![Test status](https://github.com/yourfriendken/flutter_timetable/actions/workflows/tests.yml/badge.svg?style=for-the-badge)](https://github.com/yourfriendken/flutter_timetable/actions/workflows/tests.yml)
+
 
 # Timetable for Flutter
 

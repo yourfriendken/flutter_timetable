@@ -1,4 +1,4 @@
-name: Flutter
+name: Tests
 
 on:
   push:

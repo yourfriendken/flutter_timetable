@@ -1,4 +1,6 @@
 
+[![Pub Version](https://img.shields.io/pub/v/flutter_timetable?color=green&style=for-the-badge)](https://pub.dev/packages/flutter_timetable)
+
 # Timetable for Flutter
 
 This package is a timetable for Flutter that allows developers to customize each visible UI element as needed.

@@ -61,7 +61,7 @@ class _TimetableState<T> extends State<Timetable<T>> {
   double columnWidth = 50.0;
   TimetableController controller = TimetableController();
   final _key = GlobalKey();
-  get nowIndicatorColor =>
+  Color get nowIndicatorColor =>
       widget.nowIndicatorColor ?? Theme.of(context).indicatorColor;
   int? _listenerId;
   @override

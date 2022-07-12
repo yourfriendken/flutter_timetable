@@ -20,6 +20,9 @@ class TimetableController {
 
     /// The width of the timeline where hour labels are rendered. Default is 50.
     double? timelineWidth,
+
+    /// Controller event listener.
+    Function(TimetableControllerEvent)? onEvent,
   }) {
     _columns = initialColumns;
     _start = DateUtils.dateOnly(start ?? DateTime.now());
@@ -27,6 +30,7 @@ class TimetableController {
     _headerHeight = headerHeight ?? 50;
     _timelineWidth = timelineWidth ?? 50;
     _visibleDateStart = _start;
+    if (onEvent != null) addListener(onEvent);
   }
 
   late DateTime _start;
@@ -110,6 +114,7 @@ class TimetableController {
   /// This allows the timetable to update the current visible date.
   void updateVisibleDate(DateTime date) {
     _visibleDateStart = date;
+    dispatch(TimetableVisibleDateChanged(date));
   }
 }
 
@@ -137,5 +142,11 @@ class TimetableJumpToRequested extends TimetableControllerEvent {
 /// Event dispatched when the start date of the timetable changes
 class TimetableStartChanged extends TimetableControllerEvent {
   TimetableStartChanged(this.start);
+  final DateTime start;
+}
+
+/// Event dispatched when the visible date of the timetable changes
+class TimetableVisibleDateChanged extends TimetableControllerEvent {
+  TimetableVisibleDateChanged(this.start);
   final DateTime start;
 }

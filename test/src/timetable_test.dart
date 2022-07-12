@@ -127,7 +127,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: Timetable(
-          cornerBuilder: (DateTime date) => Text("TEST"),
+          cornerBuilder: (DateTime date) => const Text("TEST"),
         ),
       ),
     );

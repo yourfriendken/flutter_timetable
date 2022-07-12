@@ -1,4 +1,9 @@
 
+## 1.1.0
+
+* Add `onEvent` function to constructor to create a default event handler.
+* Add `TimetableVisibleDateChanged` event
+
 ## 1.0.0
 
 * Update documentation
@@ -22,6 +27,7 @@
 ## 0.0.1
 
 * Add timetable widget
+
 
 
 

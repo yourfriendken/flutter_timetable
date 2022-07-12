@@ -55,15 +55,25 @@ void main() {
 
   test("TimetableController.updateVisibleDate", () {
     final date = DateTime(2020, 1, 1);
-    final controller = TimetableController();
+    dynamic event;
+    final controller = TimetableController(onEvent: (e) => event = e);
     controller.updateVisibleDate(date);
     expect(controller.visibleDateStart, date);
+    expect(event, isA<TimetableVisibleDateChanged>());
   });
 
   test("TimetableController.dispatch", () {
     final controller = TimetableController();
     dynamic event;
     controller.addListener((e) => event = e);
+    controller.dispatch(TimetableJumpToRequested(DateTime(2020, 1, 1)));
+    expect(event, isA<TimetableJumpToRequested>());
+  });
+
+  test("onEvent adds listen", () {
+    dynamic event;
+    final controller = TimetableController(onEvent: (e) => event = e);
+    expect(controller.hasListeners, isTrue);
     controller.dispatch(TimetableJumpToRequested(DateTime(2020, 1, 1)));
     expect(event, isA<TimetableJumpToRequested>());
   });

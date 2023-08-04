@@ -29,9 +29,9 @@ class TimetableScreen extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () async => Navigator.pushNamed(context, '/custom'),
-              child: Row(
+              child: const Row(
                 mainAxisSize: MainAxisSize.max,
-                children: const [
+                children: [
                   Icon(Icons.celebration_outlined, color: Colors.white),
                   SizedBox(width: 8),
                   Text(
@@ -81,8 +81,8 @@ class _CustomTimetableScreenState extends State<CustomTimetableScreen> {
           actions: [
             TextButton(
               onPressed: () async => Navigator.pop(context),
-              child: Row(
-                children: const [
+              child: const Row(
+                children: [
                   Icon(Icons.chevron_left_outlined, color: Colors.white),
                   SizedBox(width: 8),
                   Text(
@@ -107,13 +107,11 @@ class _CustomTimetableScreenState extends State<CustomTimetableScreen> {
             ),
             IconButton(
               icon: const Icon(Icons.zoom_in),
-              onPressed: () =>
-                  controller.setCellHeight(controller.cellHeight + 10),
+              onPressed: () => controller.setCellHeight(controller.cellHeight + 10),
             ),
             IconButton(
               icon: const Icon(Icons.zoom_out),
-              onPressed: () =>
-                  controller.setCellHeight(controller.cellHeight - 10),
+              onPressed: () => controller.setCellHeight(controller.cellHeight - 10),
             ),
           ],
         ),
@@ -128,10 +126,7 @@ class _CustomTimetableScreenState extends State<CustomTimetableScreen> {
               child: Text(
                 DateFormat("MM/d/yyyy\nha").format(datetime),
                 style: TextStyle(
-                  color: Color(0xff000000 +
-                          (0x002222 * datetime.hour) +
-                          (0x110000 * datetime.day))
-                      .withOpacity(0.5),
+                  color: Color(0xff000000 + (0x002222 * datetime.hour) + (0x110000 * datetime.day)).withOpacity(0.5),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -142,8 +137,7 @@ class _CustomTimetableScreenState extends State<CustomTimetableScreen> {
             child: Center(child: Text("${datetime.year}")),
           ),
           headerCellBuilder: (datetime) {
-            final color =
-                Colors.primaries[datetime.day % Colors.accents.length];
+            final color = Colors.primaries[datetime.day % Colors.accents.length];
             return Container(
               decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(color: color, width: 2)),

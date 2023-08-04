@@ -1,3 +1,7 @@
+## 1.1.1
+
+* Update `intl` dependency to `^0.18.0`
+* Upgrade dependencies
 
 ## 1.1.0
 

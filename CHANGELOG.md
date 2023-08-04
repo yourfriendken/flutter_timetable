@@ -2,6 +2,7 @@
 
 * Update `intl` dependency to `^0.18.0`
 * Upgrade dependencies
+* Allow dart 3
 
 ## 1.1.0
 

@@ -1,3 +1,7 @@
+## 1.1.2
+
+* Calculate the hour when setting the visible date on scroll events.
+
 ## 1.1.1
 
 * Update `intl` dependency to `^0.18.0`
@@ -32,9 +36,4 @@
 ## 0.0.1
 
 * Add timetable widget
-
-
-
-
-
 

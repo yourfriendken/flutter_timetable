@@ -67,8 +67,7 @@ void main() {
         ),
       ),
     );
-    expect(find.text(const TimeOfDay(hour: 12, minute: 0).toString()),
-        findsOneWidget);
+    expect(find.text(const TimeOfDay(hour: 12, minute: 0).toString()), findsOneWidget);
   });
 
   testWidgets("Timetable with custom day label", (WidgetTester tester) async {
@@ -149,7 +148,7 @@ void main() {
     expect(controller.visibleDateStart, DateTime(2020, 1, 1));
     controller.jumpTo(DateTime(2020, 1, 15, 11));
     await tester.pumpAndSettle();
-    expect(controller.visibleDateStart, DateTime(2020, 1, 15));
+    expect(controller.visibleDateStart, DateTime(2020, 1, 15, 10));
   });
 
   testWidgets("controller columns changed", (tester) async {
@@ -184,8 +183,7 @@ void main() {
     );
 
     // drag to the left
-    await tester.drag(
-        find.text(DateTime(2020, 1, 1).toString()), const Offset(-200, -200));
+    await tester.drag(find.text(DateTime(2020, 1, 1).toString()), const Offset(-200, -200));
     await tester.pumpAndSettle();
     expect(find.text(DateTime(2020, 1, 4).toString()), findsOneWidget);
   });

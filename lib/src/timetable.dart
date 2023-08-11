@@ -34,7 +34,7 @@ class Timetable<T> extends StatefulWidget {
   /// Snap animation curve. Default is `Curves.bounceOut`
   final Curve snapAnimationCurve;
 
-  // Snap animation duration. Default is 300 ms
+  /// Snap animation duration. Default is 300 ms
   final Duration snapAnimationDuration;
 
   /// Color of indicator line that shows the current time. Default is `Theme.indicatorColor`.

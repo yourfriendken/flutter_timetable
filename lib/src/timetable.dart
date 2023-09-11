@@ -31,6 +31,12 @@ class Timetable<T> extends StatefulWidget {
   /// Snap to hour column. Default is `true`.
   final bool snapToDay;
 
+  /// Snap animation curve. Default is `Curves.bounceOut`
+  final Curve snapAnimationCurve;
+
+  /// Snap animation duration. Default is 300 ms
+  final Duration snapAnimationDuration;
+
   /// Color of indicator line that shows the current time. Default is `Theme.indicatorColor`.
   final Color? nowIndicatorColor;
 
@@ -48,6 +54,8 @@ class Timetable<T> extends StatefulWidget {
     this.nowIndicatorColor,
     this.cornerBuilder,
     this.snapToDay = true,
+    this.snapAnimationDuration = const Duration(milliseconds: 300),
+    this.snapAnimationCurve = Curves.bounceOut
   }) : super(key: key);
 
   @override
@@ -370,8 +378,6 @@ class _TimetableState<T> extends State<Timetable<T>> {
   }
 
   bool _isSnapping = false;
-  final _animationDuration = const Duration(milliseconds: 300);
-  final _animationCurve = Curves.bounceOut;
   Future _snapToCloset() async {
     if (_isSnapping || !widget.snapToDay) return;
     _isSnapping = true;
@@ -380,13 +386,13 @@ class _TimetableState<T> extends State<Timetable<T>> {
         ((_dayScrollController.offset) / columnWidth).round() * columnWidth;
     _dayScrollController.animateTo(
       snapPosition,
-      duration: _animationDuration,
-      curve: _animationCurve,
+      duration: widget.snapAnimationDuration,
+      curve: widget.snapAnimationCurve,
     );
     _dayHeadingScrollController.animateTo(
       snapPosition,
-      duration: _animationDuration,
-      curve: _animationCurve,
+      duration: widget.snapAnimationDuration,
+      curve: widget.snapAnimationCurve,
     );
     _isSnapping = false;
   }
@@ -410,13 +416,13 @@ class _TimetableState<T> extends State<Timetable<T>> {
     await Future.wait([
       _dayScrollController.animateTo(
         datePosition,
-        duration: _animationDuration,
-        curve: _animationCurve,
+        duration: widget.snapAnimationDuration,
+        curve: widget.snapAnimationCurve,
       ),
       _timeScrollController.animateTo(
         hourPosition,
-        duration: _animationDuration,
-        curve: _animationCurve,
+        duration: widget.snapAnimationDuration,
+        curve: widget.snapAnimationCurve,
       ),
     ]);
   }

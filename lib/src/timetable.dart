@@ -193,21 +193,23 @@ class _TimetableState<T> extends State<Timetable<T>> {
                 child: SingleChildScrollView(
                   controller: _timeScrollController,
                   child: SizedBox(
-                    height: controller.cellHeight * 24.0,
+                    height: controller.cellHeight * (controller.endHour - controller.startHour + 1),
                     child: Row(
                       children: [
                         SizedBox(
                           width: controller.timelineWidth,
-                          height: controller.cellHeight * 24.0,
+                          height: controller.cellHeight * (controller.endHour - controller.startHour + 1),
                           child: Column(
                             children: [
                               SizedBox(height: controller.cellHeight / 2),
-                              for (var i = 1; i < 24; i++) //
+                              for (var i = controller.startHour + 1;i < controller.endHour + 1;i++)
                                 SizedBox(
                                   height: controller.cellHeight,
                                   child: Center(
-                                      child: _buildHour(
-                                          TimeOfDay(hour: i, minute: 0))),
+                                    child: _buildHour(
+                                      TimeOfDay(hour: i, minute: 0),
+                                    ),
+                                  ),
                                 ),
                             ],
                           ),
@@ -230,13 +232,13 @@ class _TimetableState<T> extends State<Timetable<T>> {
                               return Container(
                                 clipBehavior: Clip.none,
                                 width: columnWidth,
-                                height: controller.cellHeight * 24.0,
+                                height: controller.cellHeight * (controller.endHour - controller.startHour + 1),
                                 child: Stack(
                                   clipBehavior: Clip.none,
                                   children: [
                                     Column(
                                       children: [
-                                        for (int i = 0; i < 24; i++)
+                                        for (int i = controller.startHour; i < controller.endHour + 1; i++)
                                           SizedBox(
                                             width: columnWidth,
                                             height: controller.cellHeight,
@@ -250,7 +252,7 @@ class _TimetableState<T> extends State<Timetable<T>> {
                                     ),
                                     for (final TimetableItem<T> event in events)
                                       Positioned(
-                                        top: (event.start.hour +
+                                        top: (-controller.startHour + event.start.hour +
                                                 (event.start.minute / 60)) *
                                             controller.cellHeight,
                                         width: columnWidth,
@@ -261,7 +263,7 @@ class _TimetableState<T> extends State<Timetable<T>> {
                                       ),
                                     if (isToday)
                                       Positioned(
-                                        top: ((now.hour + (now.minute / 60.0)) *
+                                        top: ((-controller.startHour + now.hour + (now.minute / 60.0)) *
                                                 controller.cellHeight) -
                                             1,
                                         width: columnWidth,

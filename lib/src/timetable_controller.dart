@@ -12,6 +12,12 @@ class TimetableController {
     /// The start date (first column) of the timetable. Default is today.
     DateTime? start,
 
+    /// The start hour of the timetable. Default is 0.
+    int? startHour,
+
+    /// The end hour of the timetable. Default is 23.
+    int? endHour,
+
     /// The height of each cell in the timetable. Default is 50.
     double? cellHeight,
 
@@ -26,6 +32,8 @@ class TimetableController {
   }) {
     _columns = initialColumns;
     _start = DateUtils.dateOnly(start ?? DateTime.now());
+    _startHour = startHour ?? 0;
+    _endHour = endHour ?? 23;
     _cellHeight = cellHeight ?? 50;
     _headerHeight = headerHeight ?? 50;
     _timelineWidth = timelineWidth ?? 50;
@@ -40,6 +48,24 @@ class TimetableController {
   set start(DateTime value) {
     _start = DateUtils.dateOnly(value);
     dispatch(TimetableStartChanged(_start));
+  }
+
+  /// The [start] time of the timetable.
+  late int _startHour;
+  int get startHour => _startHour;
+  set startHour(int value) {
+    assert(value >= 0 && value < 24);
+    _startHour = value;
+    dispatch(TimetableStartHourChanged(value));
+  }
+
+  /// The [end] time of the timetable.
+  late int _endHour;
+  int get endHour => _endHour;
+  set endHour(int value) {
+    assert(value >= 0 && value < 24);
+    _endHour = value;
+    dispatch(TimetableEndHourChanged(value));
   }
 
   int _columns = 3;
@@ -143,6 +169,18 @@ class TimetableJumpToRequested extends TimetableControllerEvent {
 class TimetableStartChanged extends TimetableControllerEvent {
   TimetableStartChanged(this.start);
   final DateTime start;
+}
+
+/// Event dispatched when the start time of the timetable changes
+class TimetableStartHourChanged extends TimetableControllerEvent {
+  TimetableStartHourChanged(this.startHour);
+  final int startHour;
+}
+
+/// Event dispatched when the end time of the timetable changes
+class TimetableEndHourChanged extends TimetableControllerEvent {
+  TimetableEndHourChanged(this.endHour);
+  final int endHour;
 }
 
 /// Event dispatched when the visible date of the timetable changes

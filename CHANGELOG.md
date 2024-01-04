@@ -1,3 +1,19 @@
+# Change Log
+
+## 1.1.5
+
+* Remove `intl` dependency to reduce size and minimize conflicts
+
+## 1.1.4
+
+* Update `intl` dependency to `^0.19.0`
+* Update `flutter_lints` dependency to `^1.0.0`
+
+## 1.1.3
+
+* Add `snapAnimationCurve` and `snapAnimationDuration` to the 'Timetable' constructor to allow for customizing the animation when snapping to the time. (Thanks @joemielke)
+* Upgrade dependencies
+
 ## 1.1.2
 
 * Calculate the hour when setting the visible date on scroll events.

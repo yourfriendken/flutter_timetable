@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.6
+
+* Add `startHour` and `endHour` to the `TimetableController` that allows the view to be limited to a specified time range. (Thanks to PR [#4](https://github.com/yourfriendken/flutter_timetable/pull/4) from @parkjbdev)
+
 ## 1.1.5
 
 * Remove `intl` dependency to reduce size and minimize conflicts

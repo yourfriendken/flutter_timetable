@@ -62,6 +62,8 @@ class _CustomTimetableScreenState extends State<CustomTimetableScreen> {
     start: DateUtils.dateOnly(DateTime.now()).subtract(const Duration(days: 7)),
     initialColumns: 3,
     cellHeight: 100.0,
+    startHour: 9,
+    endHour: 18,
   );
 
   @override

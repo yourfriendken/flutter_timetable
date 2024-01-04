@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../flutter_timetable.dart';
 
@@ -287,7 +286,8 @@ class _TimetableState<T> extends State<Timetable<T>> {
         );
       });
 
-  final _dateFormatter = DateFormat('MMM\nd');
+  String _formatDate(DateTime date) => "${_months[date.month - 1]}\n${date.day}";
+  static const _months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
   Widget _buildHeaderCell(int i) {
     final date = controller.start.add(Duration(days: i));
@@ -299,7 +299,7 @@ class _TimetableState<T> extends State<Timetable<T>> {
         : FontWeight.normal;
     return Center(
       child: Text(
-        _dateFormatter.format(date),
+        _formatDate(date),
         style: TextStyle(fontSize: 12, fontWeight: weight),
         textAlign: TextAlign.center,
       ),
@@ -336,7 +336,7 @@ class _TimetableState<T> extends State<Timetable<T>> {
     );
   }
 
-  final _hmma = DateFormat("h:mm a");
+  String toTime(DateTime date) => "${date.hour % 12}:${date.minute.toString().padLeft(2, "0")} ${date.hour > 12 ? 'PM' : 'AM'}";
   Widget _buildEvent(TimetableItem<T> event) {
     if (widget.itemBuilder != null) return widget.itemBuilder!(event);
     return Container(
@@ -350,7 +350,7 @@ class _TimetableState<T> extends State<Timetable<T>> {
         ),
       ),
       child: Text(
-        "${_hmma.format(event.start)} - ${_hmma.format(event.end)}",
+        "${toTime(event.start)} - ${toTime(event.end)}",
         style: TextStyle(
           fontSize: 10,
           color: Theme.of(context).colorScheme.onSurface,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_timetable/flutter_timetable.dart';
-import 'package:intl/intl.dart';
 
 void main() {
   testWidgets("Timetable", (WidgetTester tester) async {
@@ -117,8 +116,7 @@ void main() {
         ),
       ),
     );
-    final hmma = DateFormat("h:mm a");
-    final label = "${hmma.format(item.start)} - ${hmma.format(item.end)}";
+    const label = "10:00 AM - 11:00 AM";
     expect(find.text(label, skipOffstage: false), findsOneWidget);
   });
 

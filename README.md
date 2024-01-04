@@ -1,14 +1,11 @@
 
+# Timetable for Flutter
+
 [![Pub Version](https://img.shields.io/pub/v/flutter_timetable)](https://pub.dev/packages/flutter_timetable)
 [![Test status](https://github.com/yourfriendken/flutter_timetable/actions/workflows/tests.yml/badge.svg?style=for-the-badge)](https://github.com/yourfriendken/flutter_timetable/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/yourfriendken/flutter_timetable/branch/main/graph/badge.svg?token=63VTEILRUG)](https://codecov.io/gh/yourfriendken/flutter_timetable)
 
-# Timetable for Flutter
-
 This package is a timetable for Flutter that allows developers to customize each visible UI element as needed.
-
-
-# Goals of this package
 
 ## Highly customizable
 
@@ -25,7 +22,6 @@ Limiting the scope of this package to just the timetable widget avoids superfluo
 | Defaults out of the box | Using customized builders and controllers |
 | ------- | ----------- |
 | ![Plain old timetable](https://github.com/yourfriendken/flutter_timetable/raw/main/images/default.gif) | ![Timetable with all the builders, a controller, etc,](https://github.com/yourfriendken/flutter_timetable/raw/main/images/custom.gif) |
-
 
 ```dart
 import 'dart:math';
@@ -44,7 +40,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         routes: {
           '/': (context) => const TimetableScreen(),
-          '/custom': (context) => const CustomizedTimetableScreen(),
+          '/custom': (context) => const CustomTimetableScreen(),
         },
       );
 }
@@ -59,12 +55,15 @@ class TimetableScreen extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () async => Navigator.pushNamed(context, '/custom'),
-              child: Row(
+              child: const Row(
                 mainAxisSize: MainAxisSize.max,
-                children: const [
+                children: [
                   Icon(Icons.celebration_outlined, color: Colors.white),
                   SizedBox(width: 8),
-                  Text("Custom builders", style: TextStyle(color: Colors.white, fontSize: 16)),
+                  Text(
+                    "Custom builders",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                   SizedBox(width: 8),
                   Icon(Icons.chevron_right_outlined, color: Colors.white),
                 ],
@@ -77,18 +76,20 @@ class TimetableScreen extends StatelessWidget {
 }
 
 /// Timetable screen with all the stuff - controller, builders, etc.
-class CustomizedTimetableScreen extends StatefulWidget {
-  const CustomizedTimetableScreen({Key? key}) : super(key: key);
+class CustomTimetableScreen extends StatefulWidget {
+  const CustomTimetableScreen({Key? key}) : super(key: key);
   @override
-  State<CustomizedTimetableScreen> createState() => _CustomizedTimetableScreenState();
+  State<CustomTimetableScreen> createState() => _CustomTimetableScreenState();
 }
 
-class _CustomizedTimetableScreenState extends State<CustomizedTimetableScreen> {
+class _CustomTimetableScreenState extends State<CustomTimetableScreen> {
   final items = generateItems();
   final controller = TimetableController(
     start: DateUtils.dateOnly(DateTime.now()).subtract(const Duration(days: 7)),
     initialColumns: 3,
     cellHeight: 100.0,
+    startHour: 9,
+    endHour: 18,
   );
 
   @override
@@ -108,11 +109,14 @@ class _CustomizedTimetableScreenState extends State<CustomizedTimetableScreen> {
           actions: [
             TextButton(
               onPressed: () async => Navigator.pop(context),
-              child: Row(
-                children: const [
+              child: const Row(
+                children: [
                   Icon(Icons.chevron_left_outlined, color: Colors.white),
                   SizedBox(width: 8),
-                  Text("Default", style: TextStyle(color: Colors.white, fontSize: 16)),
+                  Text(
+                    "Default",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
                 ],
               ),
             ),
@@ -194,13 +198,17 @@ class _CustomizedTimetableScreenState extends State<CustomizedTimetableScreen> {
               color: Colors.white.withAlpha(220),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 4, offset: Offset(0, 2)),
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
               ],
             ),
             child: Center(
               child: Text(
                 item.data ?? "",
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
           ),

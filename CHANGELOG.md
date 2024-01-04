@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.5
+
+* Remove `intl` dependency to reduce size and minimize conflicts
+
 ## 1.1.4
 
 * Update `intl` dependency to `^0.19.0`
